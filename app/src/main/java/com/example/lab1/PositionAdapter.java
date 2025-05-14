@@ -1,6 +1,5 @@
 package com.example.lab1;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,47 +10,55 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.ViewHolder> {
-    private List<PositionItem> positions;
+public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.PositionViewHolder> {
 
-    public PositionAdapter(List<PositionItem> positions) {
-        this.positions = positions;
-    }
+    private final List<PositionItem> positionList;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        CheckBox checkBox;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            checkBox = itemView.findViewById(R.id.positionCheckBox);
-        }
+    public PositionAdapter(List<PositionItem> positionList) {
+        this.positionList = positionList;
     }
 
     @NonNull
     @Override
-    public PositionAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PositionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_position, parent, false);
-        return new ViewHolder(view);
+        return new PositionViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        PositionItem item = positions.get(position);
+    public void onBindViewHolder(@NonNull PositionViewHolder holder, int position) {
+        PositionItem item = positionList.get(position);
         holder.checkBox.setText(item.getName());
+        holder.checkBox.setChecked(item.isSelected());
 
-
-        holder.checkBox.setOnCheckedChangeListener(null);
-        holder.checkBox.setChecked(item.isChecked());
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            item.setChecked(isChecked);
+            item.setSelected(isChecked);
         });
     }
 
-
     @Override
     public int getItemCount() {
-        return positions.size();
+        return positionList.size();
+    }
+
+    public List<PositionItem> getSelectedItems() {
+        List<PositionItem> selected = new java.util.ArrayList<>();
+        for (PositionItem item : positionList) {
+            if (item.isSelected()) {
+                selected.add(item);
+            }
+        }
+        return selected;
+    }
+
+    static class PositionViewHolder extends RecyclerView.ViewHolder {
+        CheckBox checkBox;
+
+        public PositionViewHolder(@NonNull View itemView) {
+            super(itemView);
+            checkBox = itemView.findViewById(R.id.positionCheckBox);
+        }
     }
 }
 
