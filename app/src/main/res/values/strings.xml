@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Anx</string>
+    <string name="slogan">зробіть замовлення тут, офіціант кушає</string>
+    <string name="WhatsYourName">як вас звати?</string>
+    <string name="Table">номер столику</string>
+    <string name="wine">яке вино бажаєте?</string>
+    <string name="whatsize">розмір</string>
+    <string name="mbice">з льодом смачніше</string>
+    <string-array name="wine_names">
+        <item>гранатове</item>
+        <item>вишневе</item>
+        <item>біла черешня</item>
+        <item>чайна троянда</item>
+        <item>айвове</item>
+        <item>червона слива</item>
+        <item>суничне</item>
+        <item>персикове</item>
+        <item>біла Слива</item>
+    </string-array>
+
+</resources>
