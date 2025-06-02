@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -83,19 +85,21 @@ public class OrderFragment extends Fragment {
                     .commit();
         });
 
-        btnReorder.setOnClickListener(v -> {
+        btnOk.setOnClickListener(v -> {
 
-            Bundle args = getArguments();
-            if (args != null) {
-                FormFragment formFragment = new FormFragment();
-                formFragment.setArguments(args);
-                requireActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, formFragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
+            OrderDatabase db = new OrderDatabase(requireContext());
+            db.addOrder(name, table, items, size, ice);
+
+            Toast.makeText(requireContext(), "Замовлення збережено", Toast.LENGTH_SHORT).show();
+
+            requireActivity().getSupportFragmentManager().popBackStack();
         });
+        Button btnOpen = view.findViewById(R.id.btn_open);
+        btnOpen.setOnClickListener(v -> {
+            startActivity(new android.content.Intent(requireContext(), OrderListActivity.class));
+        });
+
+
 
         return view;
     }

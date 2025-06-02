@@ -23,6 +23,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".OrderListActivity"
+            android:theme="@style/AppThemeD" />
+
+
     </application>
 
 </manifest>
